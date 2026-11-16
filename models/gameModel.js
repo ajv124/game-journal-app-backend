@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const gameSchema = new mongoose.Schema({
@@ -15,8 +14,7 @@ const gameSchema = new mongoose.Schema({
         default: null
     },
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
         required: true
     },
     status: {
@@ -25,5 +23,7 @@ const gameSchema = new mongoose.Schema({
         default: "backlog"
     }
 }, { timestamps: true });
+
+gameSchema.index({ userId: 1, gameId: 1 },{ unique: true });
 
 module.exports = mongoose.model("Game", gameSchema);

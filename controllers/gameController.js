@@ -16,7 +16,6 @@ exports.getGamesController = async (req, res) => {
                     parent_platforms: req.query.platforms || undefined,
                     genres: req.query.genres || undefined,
                     ordering: req.query.sort || "-added",
-                    exclude_additions: true
                 }
             }
         );

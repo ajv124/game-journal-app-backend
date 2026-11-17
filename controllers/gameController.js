@@ -149,3 +149,42 @@ exports.removeGameController = async (req, res) => {
         res.status(500).json("Internal server error")
     }
 }
+
+exports.getTimelineGameController = async (req, res) => {
+    try {
+        const { id } = req.params
+        const userId = req.payload.userId
+        const timelineGame = await games.findOne({
+            gameId: id,
+            userId
+        })
+        if (!timelineGame) {
+            return res.status(404).json("Game not found")
+        }
+        res.status(200).json(timelineGame)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json("Internal server error")
+    }
+}
+
+exports.changeStatusController = async (req, res) => {
+    try {
+        const { id } = req.params
+        const {status} = req.body
+        const userId = req.payload.userId
+        const updatedGame = await games.findOneAndUpdate(
+            { gameId: id, userId },
+            { status },
+            { new: true }
+        )
+        if (updatedGame) {
+            return res.status(200).json(updatedGame)
+        } else {
+            return res.status(409).json("Game has been deleted")
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json("Internal server error")
+    }
+}

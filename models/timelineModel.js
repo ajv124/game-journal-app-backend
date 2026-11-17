@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const timelineSchema = new mongoose.Schema({
@@ -12,37 +11,8 @@ const timelineSchema = new mongoose.Schema({
         required: true
     },
 
-    type: {
+    name: {
         type: String,
-        enum: [
-            "milestone",
-            "note",
-            "memory",
-            "review",
-            "achievement",
-            "boss"
-        ],
-        required: true
-    },
-
-    title: {
-        type: String,
-        required: true
-    },
-
-    content: {
-        type: String,
-        default: ""
-    },
-
-    images: {
-        type: [String],
-        default: []
-    },
-
-    entryDate: {
-        type: Date,
-        default: Date.now,
         required: true
     },
 
@@ -50,4 +20,4 @@ const timelineSchema = new mongoose.Schema({
 
 timelineSchema.index({ userId: 1, gameId: 1 },{ unique: true });
 
-module.exports = mongoose.model("Timeline", timelineSchema);
+module.exports = mongoose.model("timelines", timelineSchema);
